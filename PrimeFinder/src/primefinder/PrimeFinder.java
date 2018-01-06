@@ -6,6 +6,7 @@
 package primefinder;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,14 +30,18 @@ public class PrimeFinder implements Runnable{
     private void findPrimesBetween(int startNumber, int endNumber, String fileName){
         try {
             fileHandler = new FileHandler(fileName);
-        } catch (FileNotFoundException ex) {
+        } catch (IOException ex) {
             Logger.getLogger(PrimeFinder.class.getName()).log(Level.SEVERE, null, ex);
         }
         for(int i = startNumber; i < endNumber; i++){
             loadingBar(i);
             if(isPrime(i)){
-                fileHandler.writeToFile(Integer.toString(i));
-                //primes.add(i);
+                try {
+                    fileHandler.writeToFile(i);
+                    //primes.add(i);
+                } catch (IOException ex) {
+                    Logger.getLogger(PrimeFinder.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
         fileHandler.closeStream();

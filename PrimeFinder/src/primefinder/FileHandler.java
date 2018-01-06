@@ -9,6 +9,7 @@ import java.io.BufferedOutputStream;
 import java.io.DataOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,20 +20,16 @@ import java.util.logging.Logger;
  * @author josef
  */
 public class FileHandler {
-    DataOutputStream out;
-
-    public FileHandler(String fileName) throws FileNotFoundException {
-        this.out = new DataOutputStream(new BufferedOutputStream(
+    //DataOutputStream out;
+    FileWriter out;
+    public FileHandler(String fileName) throws FileNotFoundException, IOException {
+       /* this.out = new DataOutputStream(new BufferedOutputStream(
                 new FileOutputStream(fileName+".csv")));
-                System.out.println("File Created");
-        
+                System.out.println("File Created");*/
+        out = new FileWriter(fileName+".csv");
     }
-    public void writeToFile(String msg){
-        try {
-            out.writeUTF(msg + "," + "\n");
-        } catch (IOException ex) {
-            Logger.getLogger(FileHandler.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public void writeToFile(int value) throws IOException{
+        out.write(Integer.toString(value) + ", \n");
     }
     public void closeStream(){
         try {
