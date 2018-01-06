@@ -5,7 +5,10 @@
  */
 package primefinder;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -15,21 +18,28 @@ public class PrimeFinder implements Runnable{
     private ArrayList<Integer> primes = new ArrayList<>();
     private int startNumber;
     private int endNumber;
-    
-    PrimeFinder(int startNumber, int endNumber) throws InterruptedException {
+    FileHandler fileHandler;
+    PrimeFinder(int startNumber, int endNumber, String fileName) throws InterruptedException {
         System.out.println("Thread: " + startNumber);
         this.startNumber = startNumber;
         this.endNumber = endNumber;
-        findPrimesBetween(startNumber, endNumber);
+        findPrimesBetween(startNumber, endNumber, fileName);
     }
     
-    private void findPrimesBetween(int startNumber, int endNumber){
+    private void findPrimesBetween(int startNumber, int endNumber, String fileName){
+        try {
+            fileHandler = new FileHandler(fileName);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(PrimeFinder.class.getName()).log(Level.SEVERE, null, ex);
+        }
         for(int i = startNumber; i < endNumber; i++){
             loadingBar(i);
             if(isPrime(i)){
-                primes.add(i);
+                fileHandler.writeToFile(Integer.toString(i));
+                //primes.add(i);
             }
         }
+        fileHandler.closeStream();
     }
     
     public void printPrimes(){
@@ -65,7 +75,7 @@ public class PrimeFinder implements Runnable{
 
     @Override
     public void run() {
-        findPrimesBetween(startNumber, endNumber);
-        printPrimes();
+        //findPrimesBetween(startNumber, endNumber);
+        //printPrimes();
     }
 }

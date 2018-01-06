@@ -5,14 +5,19 @@
  */
 package primefinder;
 
+import java.io.FileNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author josef
  */
 public class app {
     public static void main(String [] args) throws InterruptedException{
-        
-        (new Thread(new PrimeFinder(5000, 10000000))).start();
-        (new Thread(new PrimeFinder(3, 500000))).start();
+        //FileHandler out = new FileHandler();
+        (new Thread(new PrimeFinder(3, 10000000, "file1"))).start();
+        (new Thread(new PrimeFinder(10000001, 20000000, "file2"))).start();
+        (new Thread(new PrimeFinder(20000001, 30000000, "file3"))).start();
     }
 }
