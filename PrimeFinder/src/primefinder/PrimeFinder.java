@@ -5,21 +5,18 @@
  */
 package primefinder;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author josef
- */
+
 public class PrimeFinder implements Runnable{
     private ArrayList<Integer> primes = new ArrayList<>();
     private int startNumber;
     private int endNumber;
     FileHandler fileHandler;
+    
     PrimeFinder(int startNumber, int endNumber, String fileName) throws InterruptedException {
         System.out.println("Thread: " + startNumber);
         this.startNumber = startNumber;
@@ -58,7 +55,7 @@ public class PrimeFinder implements Runnable{
     }
     
     public void loadingBar(int nr){
-        if(nr%(Math.round(endNumber/10)) == 0){
+        if(nr%(Math.round((endNumber-startNumber)/10)) == 0){
             System.out.print("=");
         }
     }
