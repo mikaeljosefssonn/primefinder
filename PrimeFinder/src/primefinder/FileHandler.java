@@ -5,10 +5,7 @@
  */
 package primefinder;
 
-import java.io.BufferedOutputStream;
-import java.io.DataOutputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.logging.Level;

@@ -11,17 +11,18 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public class PrimeFinder implements Runnable{
+public class PrimeFinder extends Thread{
     private ArrayList<Integer> primes = new ArrayList<>();
     private int startNumber;
     private int endNumber;
+    private String fileName;
     FileHandler fileHandler;
     
     PrimeFinder(int startNumber, int endNumber, String fileName) throws InterruptedException {
-        System.out.println("Thread: " + startNumber);
         this.startNumber = startNumber;
         this.endNumber = endNumber;
-        findPrimesBetween(startNumber, endNumber, fileName);
+        this.fileName = fileName;
+        
     }
     
     private void findPrimesBetween(int startNumber, int endNumber, String fileName){
@@ -77,7 +78,9 @@ public class PrimeFinder implements Runnable{
 
     @Override
     public void run() {
-        //findPrimesBetween(startNumber, endNumber);
+        System.out.println("Thread started " + startNumber);
+        findPrimesBetween(startNumber, endNumber, fileName);
+        
         //printPrimes();
     }
 }
